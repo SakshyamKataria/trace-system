@@ -1,34 +1,26 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 
 function Analyzer() {
   const [log, setLog] = useState("");
-  const [fileName, setFileName] = useState("");
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-
-  const handleFileChange = (e: any) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setFileName(file.name);
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      setLog(event.target?.result as string);
-    };
-    reader.readAsText(file);
-  };
 
   const analyzeLog = async () => {
     try {
       setLoading(true);
 
+      // Fetch logs automatically from backend
+      const logRes = await fetch("http://127.0.0.1:8000/get-logs");
+      const fetched = await logRes.json();
+
+      const logData = fetched.log;
+      setLog(logData);
+
       const res = await fetch("http://127.0.0.1:8000/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ log }),
+        body: JSON.stringify({ log: logData }),
       });
 
       const data = await res.json();
@@ -68,33 +60,13 @@ function Analyzer() {
           🤖 Log Analyzer
         </h2>
 
-        {/* File Upload */}
-        <motion.label
-          whileHover={{ scale: 1.05 }}
-          className="block border-2 border-dashed border-cyan-400/40 p-4 rounded-lg mb-4 cursor-pointer hover:bg-cyan-500/10 transition text-cyan-200"
-        >
-          📂 Upload Log File
-          <input
-            type="file"
-            accept=".log,.txt"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-
-          {fileName && (
-            <p className="text-sm text-cyan-300 mt-2">
-              Uploaded: {fileName}
-            </p>
-          )}
-        </motion.label>
-
-        {/* Textarea */}
+        {/* Neon Textarea */}
         <textarea
-          className="w-full p-3 bg-[#0f1b33] border border-cyan-400/20 rounded mb-4 text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          className="w-full p-3 bg-[#0f1b33] border border-cyan-400/30 rounded mb-4 text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.6)]"
           rows={6}
-          placeholder="Paste logs here or upload a file..."
+          placeholder="Logs will be fetched automatically from backend..."
           value={log}
-          onChange={(e) => setLog(e.target.value)}
+          readOnly
         />
 
         {/* Button */}
@@ -104,7 +76,7 @@ function Analyzer() {
           onClick={analyzeLog}
           className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-6 py-2 rounded transition shadow-lg shadow-cyan-500/30"
         >
-          {loading ? "Analyzing..." : "Analyze"}
+          {loading ? "Analyzing..." : "Fetch & Analyze Logs"}
         </motion.button>
 
         {/* Loading */}
@@ -154,4 +126,3 @@ function Analyzer() {
 }
 
 export default Analyzer;
-
