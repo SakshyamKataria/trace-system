@@ -1,0 +1,272 @@
+/* ================= ROOT ================= */
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ================= GLOBAL BACKGROUND ================= */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #0b1220, #020617 70%);
+  color: #e6faff;
+  overflow-x: hidden;
+}
+
+
+/* ================= CYBER GRID BACKGROUND ================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background-image:
+    linear-gradient(rgba(0,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 40s linear infinite;
+  z-index: -2;
+}
+
+@keyframes gridMove {
+  from { transform: translate(0,0); }
+  to { transform: translate(-80px,-80px); }
+}
+
+
+/* ================= GLOWING BACKGROUND ORB ================= */
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,200,255,0.18), transparent 70%);
+  filter: blur(120px);
+  top: -150px;
+  right: -150px;
+  animation: glowMove 12s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes glowMove {
+  from { transform: translate(0,0); }
+  to { transform: translate(-120px,120px); }
+}
+
+
+/* ================= HEADER ================= */
+
+header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(10,20,35,0.75);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(0,200,255,0.15);
+}
+
+
+/* header links */
+
+header a {
+  color: #7fdcff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+header a:hover {
+  color: #a6f1ff;
+
+  text-shadow:
+    0 0 6px rgba(0,230,255,0.6),
+    0 0 12px rgba(0,200,255,0.4);
+}
+
+
+/* logo */
+
+header h1,
+header .logo-text {
+  color: #7fdcff;
+
+  text-shadow:
+    0 0 8px rgba(0,200,255,0.4);
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+  width: 100%;
+  margin-top: 60px;
+
+  background: rgba(10,20,35,0.75);
+  backdrop-filter: blur(10px);
+
+  border-top: 1px solid rgba(0,200,255,0.15);
+
+  color: #7fdcff;
+  text-align: center;
+  padding: 18px;
+}
+
+footer p {
+  color: #7fdcff;
+
+  text-shadow:
+    0 0 5px rgba(0,200,255,0.4);
+}
+
+
+/* ================= GLASS CARDS ================= */
+
+.card,
+.bg-white {
+  background: rgba(10,15,30,0.75) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: 16px;
+
+  box-shadow:
+    0 0 15px rgba(0,255,255,0.08),
+    0 0 35px rgba(0,120,255,0.06);
+
+  color: #e6faff !important;
+
+  transition: all 0.3s ease;
+}
+
+.card:hover,
+.bg-white:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 25px rgba(0,255,255,0.35),
+    0 0 50px rgba(0,120,255,0.25);
+}
+
+
+/* ================= NEON BUTTONS ================= */
+
+button {
+  background: #000000 !important;
+  color: #ffffff !important;
+
+  border: 2px solid #00eaff;
+  border-radius: 8px;
+
+  padding: 10px 22px;
+
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+
+  position: relative;
+
+  animation: neonPulse 2s infinite alternate;
+}
+
+@keyframes neonPulse {
+
+  0% {
+    box-shadow:
+      0 0 5px #00eaff,
+      0 0 10px #00eaff,
+      0 0 20px #008cff,
+      inset 0 0 5px #00eaff;
+  }
+
+  50% {
+    box-shadow:
+      0 0 12px #00eaff,
+      0 0 30px #00eaff,
+      0 0 50px #008cff,
+      inset 0 0 10px #00eaff;
+  }
+
+  100% {
+    box-shadow:
+      0 0 5px #00eaff,
+      0 0 10px #00eaff,
+      0 0 20px #008cff,
+      inset 0 0 5px #00eaff;
+  }
+
+}
+
+
+/* ================= INPUTS ================= */
+
+input,
+textarea,
+select {
+  background: rgba(2,6,23,0.8) !important;
+  border: 1px solid rgba(0,255,255,0.2) !important;
+  color: #dffcff !important;
+  border-radius: 6px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 10px #00eaff;
+}
+
+
+/* ================= TABLE ================= */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead tr {
+  border-bottom: 1px solid rgba(0,255,255,0.2);
+}
+
+tbody tr:hover {
+  background: rgba(0,255,255,0.08);
+}
+
+
+/* ================= FULL SCREEN SUPPORT ================= */
+
+.min-h-screen {
+  min-height: 100vh !important;
+  width: 100%;
+}
+
+.flex.justify-center.items-center {
+  width: 100%;
+}
+
+
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00eaff;
+  border-radius: 10px;
+}
