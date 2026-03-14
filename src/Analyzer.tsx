@@ -1,127 +1,192 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function Analyzer() {
-  const [log, setLog] = useState("");
-  const [result, setResult] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
 
-  const analyzeLog = async () => {
-    try {
-      setLoading(true);
-
-      // Fetch logs automatically from backend
-      const logRes = await fetch("http://127.0.0.1:8000/get-logs");
-      const fetched = await logRes.json();
-
-      const logData = fetched.log;
-      setLog(logData);
-
-      const res = await fetch("http://127.0.0.1:8000/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ log: logData }),
-      });
-
-      const data = await res.json();
-      setResult(data.result);
-
-      const previous = JSON.parse(localStorage.getItem("logHistory") || "[]");
-
-      const newEntry = {
-        time: new Date().toLocaleString(),
-        failure_type: data.result.failure_type,
-        root_cause: data.result.root_cause,
-        confidence: data.result.confidence,
-        fix: data.result.fix,
-      };
-
-      previous.unshift(newEntry);
-      localStorage.setItem("logHistory", JSON.stringify(previous));
-
-      setLoading(false);
-    } catch {
-      setResult({ error: "❌ Backend not connected" });
-      setLoading(false);
-    }
-  };
+  const navigate = useNavigate();
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-6 bg-[#050b18]">
+    <>
+      <style>{`
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="bg-[#0b1426]/80 backdrop-blur-lg border border-cyan-400/20 shadow-2xl rounded-xl p-6 w-full max-w-lg text-center"
-      >
+.analyzer-bg{
+  background:#020617;
+  min-height:100vh;
+}
 
-        <h2 className="text-2xl font-bold mb-6 text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]">
-          🤖 Log Analyzer
-        </h2>
+.analyzer-card{
+  background:#0f172a;
+  border:1px solid rgba(56,189,248,0.35);
+  border-radius:12px;
+  padding:28px;
 
-        {/* Neon Textarea */}
-        <textarea
-          className="w-full p-3 bg-[#0f1b33] border border-cyan-400/30 rounded mb-4 text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.6)]"
-          rows={6}
-          placeholder="Logs will be fetched automatically from backend..."
-          value={log}
-          readOnly
-        />
+  box-shadow:
+    0 0 10px rgba(56,189,248,0.25),
+    0 0 25px rgba(56,189,248,0.15);
 
-        {/* Button */}
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          whileHover={{ scale: 1.05 }}
-          onClick={analyzeLog}
-          className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-6 py-2 rounded transition shadow-lg shadow-cyan-500/30"
+  color:#e2e8f0;
+}
+
+.analyzer-title{
+  color:#38bdf8;
+  margin-bottom:22px;
+}
+
+.log-textarea{
+  background:#020617;
+  border:1px solid #38bdf8;
+  color:#e2e8f0;
+
+  padding:12px;
+  border-radius:8px;
+
+  margin-bottom:20px;
+
+  box-shadow:
+    0 0 8px rgba(56,189,248,0.6),
+    0 0 16px rgba(56,189,248,0.4),
+    0 0 25px rgba(56,189,248,0.25);
+
+  transition:0.2s;
+}
+
+.analyze-btn{
+  background:#020617;
+  border:1px solid #38bdf8;
+  color:#38bdf8;
+
+  padding:10px 22px;
+  border-radius:8px;
+
+  box-shadow:0 0 6px rgba(56,189,248,0.4);
+
+  transition:0.2s;
+}
+
+.analyze-btn:hover{
+  box-shadow:
+    0 0 12px rgba(56,189,248,0.7),
+    0 0 20px rgba(56,189,248,0.4);
+}
+
+.result-box{
+  margin-top:22px;
+  background:#020617;
+  border:1px solid #1e293b;
+  padding:16px;
+  border-radius:8px;
+  color:#e2e8f0;
+}
+
+.dev-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.dev-box{
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.dev-box:hover{
+  transform:scale(1.03);
+}
+
+      `}</style>
+
+      <div className="flex justify-center items-center p-10 analyzer-bg">
+
+        <motion.div
+          initial={{opacity:0, scale:0.9}}
+          animate={{opacity:1, scale:1}}
+          transition={{duration:0.4}}
+          className="w-full max-w-5xl"
         >
-          {loading ? "Analyzing..." : "Fetch & Analyze Logs"}
-        </motion.button>
 
-        {/* Loading */}
-        {loading && (
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 1 }}
-            className="mt-4 text-cyan-400 text-xl"
-          >
-            ⏳
-          </motion.div>
-        )}
+          <h2 className="text-3xl font-bold text-center analyzer-title">
+            🤖 Log Analyzer
+          </h2>
 
-        {/* Results */}
-        {result && !result.error && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-6 p-4 bg-[#0f1b33] border border-cyan-400/20 rounded text-left space-y-2 text-cyan-100"
-          >
-            <h2 className="font-bold text-lg text-cyan-300">
-              📊 Analysis Report
-            </h2>
+          <div className="dev-grid mt-10">
 
-            <p><strong>Failure Type:</strong> {result.failure_type}</p>
-            <p><strong>Root Cause:</strong> {result.root_cause}</p>
-            <p><strong>Confidence:</strong> {result.confidence}%</p>
+            {/* AUTO FETCH LOGS */}
 
-            <div>
-              <strong>Summary:</strong>
-              <pre className="whitespace-pre-wrap text-sm">{result.summary}</pre>
-            </div>
+            <motion.div
+              whileHover={{scale:1.05}}
+              whileTap={{scale:0.95}}
+              className="analyzer-card dev-box text-center"
+              onClick={() => navigate("/auto-fetch")}
+            >
 
-            <p><strong>Suggested Fix:</strong> {result.fix}</p>
-          </motion.div>
-        )}
+              <h3 className="text-xl font-bold analyzer-title">
+                ⚡ Auto Fetch Logs
+              </h3>
 
-        {result?.error && (
-          <div className="mt-4 text-red-400 font-semibold">
-            {result.error}
+              <p className="text-sm mt-3">
+                Automatically fetch logs directly from the backend server.
+              </p>
+
+              <p className="text-sm mt-2">
+                The system will instantly analyze failures and detect root causes.
+              </p>
+
+            </motion.div>
+
+
+            {/* UPLOAD FILE */}
+
+            <motion.div
+              whileHover={{scale:1.05}}
+              whileTap={{scale:0.95}}
+              className="analyzer-card dev-box text-center"
+              onClick={() => navigate("/upload-log")}
+            >
+
+              <h3 className="text-xl font-bold analyzer-title">
+                📂 Upload Log File
+              </h3>
+
+              <p className="text-sm mt-3">
+                Upload a log file from your local system.
+              </p>
+
+              <p className="text-sm mt-2">
+                The analyzer will parse the file and detect any system failures.
+              </p>
+
+            </motion.div>
+
+
+            {/* MANUAL LOG */}
+
+            <motion.div
+              whileHover={{scale:1.05}}
+              whileTap={{scale:0.95}}
+              className="analyzer-card dev-box text-center"
+              onClick={() => navigate("/manual-log")}
+            >
+
+              <h3 className="text-xl font-bold analyzer-title">
+                📝 Paste Logs Manually
+              </h3>
+
+              <p className="text-sm mt-3">
+                Manually paste logs from any application or service.
+              </p>
+
+              <p className="text-sm mt-2">
+                The analyzer will evaluate the logs and generate a failure report.
+              </p>
+
+            </motion.div>
+
           </div>
-        )}
 
-      </motion.div>
-    </div>
+        </motion.div>
+
+      </div>
+    </>
   );
 }
 
