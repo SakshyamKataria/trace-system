@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    // Run pytest — capture output and exit code
+                    def result = sh(
+                        script: 'cd jenkins && python3 -m pytest tests/ -v --tb=short 2>&1 | tee /tmp/pytest_output.txt',
+                        returnStatus: true
+                    )
+                    env.PYTEST_EXIT_CODE = "${result}"
+                }
+            }
+        }
+
+        stage('Send Log to TRACE') {
+            steps {
+                script {
+                    def pytestOutput = readFile('/tmp/pytest_output.txt').trim()
+                    def buildStatus = (env.PYTEST_EXIT_CODE == '0') ? 'success' : 'failure'
+
+                    writeFile file: '/tmp/send_log.py', text: """
+import requests
+import json
+from datetime import datetime
+
+payload = {
+    "build_id": "jenkins-${env.BUILD_NUMBER}-${env.JOB_NAME}".replace("/", "-"),
+    "project": "${env.JOB_NAME}",
+    "branch": "main",
+    "commit_id": "${env.GIT_COMMIT ?: 'no-commit'}",
+    "status": "${buildStatus}",
+    "timestamp": datetime.utcnow().isoformat(),
+    "log": json.dumps(${groovy.json.JsonOutput.toJson(pytestOutput)})
+}
+
+# The log field was double-encoded above; fix it
+payload["log"] = json.loads(payload["log"])
+
+try:
+    resp = requests.post(
+        "http://trace-backend:8000/api/v1/ingest-log",
+        json=payload,
+        timeout=10
+    )
+    print(f"TRACE response [{resp.status_code}]: {resp.text}")
+except Exception as e:
+    print(f"Failed to send log to TRACE: {e}")
+"""
+                    sh 'python3 /tmp/send_log.py'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline complete.'
+        }
+    }
+}
