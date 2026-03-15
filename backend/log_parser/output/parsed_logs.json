@@ -1,0 +1,1247 @@
+[
+    {
+        "line_number": 195,
+        "timestamp": "2026-02-25 21:12:39",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Actual error is: storage cluster id is missing from config in datastore alletra_datastore_abgrdg_dnd creation",
+        "error_type": null,
+        "failure_category": "Configuration Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 202,
+        "timestamp": "2026-02-25 21:12:39",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "ERROR",
+        "message": "Actual error is: storage cluster id is missing from config in datastore alletra_datastore_abgrdg_dnd creation",
+        "error_type": null,
+        "failure_category": "Configuration Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py\", line 300, in test_create_update_delete_datastore"
+        ]
+    },
+    {
+        "line_number": 223,
+        "timestamp": "2026-02-25 21:12:39",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 298,
+        "timestamp": "2026-02-25 21:12:59",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 373,
+        "timestamp": "2026-02-25 21:13:17",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '18' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 562,
+        "timestamp": "2026-02-25 21:25:48",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 672,
+        "timestamp": "2026-02-25 21:26:09",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '18' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 771,
+        "timestamp": "2026-02-25 21:29:18",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 867,
+        "timestamp": "2026-02-25 21:29:39",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '18' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 948,
+        "timestamp": "2026-02-25 21:31:37",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 1044,
+        "timestamp": "2026-02-25 21:31:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '18' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 1129,
+        "timestamp": "2026-02-25 21:33:53",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 1211,
+        "timestamp": "2026-02-25 21:34:12",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '18' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 1289,
+        "timestamp": "2026-02-25 21:34:18",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '18' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 1452,
+        "timestamp": "2026-02-25 21:39:19",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 1572,
+        "timestamp": "2026-02-25 21:47:06",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Deleted instance: 200",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 1574,
+        "timestamp": "2026-02-25 21:47:07",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "Deleted instance: 200",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 1670,
+        "timestamp": "2026-02-25 21:47:43",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "Expecting value: line 1 column 1 (char 0)",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 1672,
+        "timestamp": "2026-02-25 21:47:43",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "Jira authentication failed.",
+        "error_type": null,
+        "failure_category": "Authentication Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 1694,
+        "timestamp": "2026-02-25 21:47:57",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "Skipping 3 results with status_id UNTESTED (3) as it's not allowed.",
+        "error_type": null,
+        "failure_category": "Skipped Test",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2022,
+        "timestamp": "2026-02-25 21:47:58",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_delete_datastore",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py::TestVMEStoragePlugin::test_create_update_delete_datastore[False]",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2141,
+        "timestamp": "2026-02-25 21:48:35",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "PASSED",
+        "message": "PASSED                                                                   [ 16%]",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 2180,
+        "timestamp": "2026-02-25 21:48:52",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '53' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2231,
+        "timestamp": "2026-02-25 21:53:58",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "PASSED",
+        "message": "PASSED                                                                   [ 33%]",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 2287,
+        "timestamp": "2026-02-25 21:54:22",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '53' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2337,
+        "timestamp": "2026-02-25 21:57:31",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "PASSED",
+        "message": "PASSED                                                                   [ 50%]",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 2386,
+        "timestamp": "2026-02-25 21:57:52",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '53' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2429,
+        "timestamp": "2026-02-25 22:00:10",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "PASSED",
+        "message": "PASSED                                                                   [ 66%]",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 2478,
+        "timestamp": "2026-02-25 22:00:29",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '53' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2523,
+        "timestamp": "2026-02-25 22:02:46",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "PASSED",
+        "message": "PASSED                                                                   [ 83%]",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 2565,
+        "timestamp": "2026-02-25 22:03:07",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '53' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2604,
+        "timestamp": "2026-02-25 22:03:14",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '53' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2670,
+        "timestamp": "2026-02-25 22:06:34",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "PASSED",
+        "message": "PASSED                                                                   [100%]",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 2692,
+        "timestamp": "2026-02-25 22:06:36",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "Expecting value: line 1 column 1 (char 0)",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2693,
+        "timestamp": "2026-02-25 22:06:36",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "Jira authentication failed.",
+        "error_type": null,
+        "failure_category": "Authentication Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2704,
+        "timestamp": "2026-02-25 22:06:50",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "Skipping 3 results with status_id UNTESTED (3) as it's not allowed.",
+        "error_type": null,
+        "failure_category": "Skipped Test",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2957,
+        "timestamp": "2026-02-25 22:06:51",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "atlassian.rest_client:Expecting value: line 1 column 1 (char 0)",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2958,
+        "timestamp": "2026-02-25 22:06:51",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "ERROR",
+        "message": "hpe_glcp_automation_lib.libs.commons.utils.testrail.testrail_plugin:Jira authentication failed.",
+        "error_type": null,
+        "failure_category": "Authentication Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 2969,
+        "timestamp": "2026-02-25 22:06:51",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "hpe_glcp_automation_lib.libs.commons.utils.testrail.testrail_utils:Skipping 3 results with status_id UNTESTED (3) as it's not allowed.",
+        "error_type": null,
+        "failure_category": "Skipped Test",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3031,
+        "timestamp": "2026-02-25 22:06:51",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_migrate_vm_from_one_datastore_to_another",
+        "status": "WARNING",
+        "message": "hpe_glcp_automation_lib.libs.commons.plugins.onprem_info.onprem_info_plugin:OnPremInfo Plugin: Invalid host IP for On-Prem environment. Retrieval disabled.",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3316,
+        "timestamp": "2026-02-25 22:07:53",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Actual error is: storage cluster id is missing from config in datastore alletra_datastore_yoopnj_dnd creation",
+        "error_type": null,
+        "failure_category": "Configuration Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3323,
+        "timestamp": "2026-02-25 22:07:53",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "ERROR",
+        "message": "Actual error is: storage cluster id is missing from config in datastore alletra_datastore_yoopnj_dnd creation",
+        "error_type": null,
+        "failure_category": "Configuration Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py\", line 300, in test_create_update_delete_datastore"
+        ]
+    },
+    {
+        "line_number": 3344,
+        "timestamp": "2026-02-25 22:07:53",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3419,
+        "timestamp": "2026-02-25 22:08:13",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_storage_server",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 3461,
+        "timestamp": "2026-02-25 22:08:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_create_gfs2_datastore",
+        "status": "PASSED",
+        "message": "PASSED",
+        "error_type": null,
+        "failure_category": null,
+        "stack_trace": null
+    },
+    {
+        "line_number": 3536,
+        "timestamp": "2026-02-25 22:08:32",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3576,
+        "timestamp": "2026-02-25 22:08:55",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "ERROR",
+        "message": "Instance status : Failed",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3585,
+        "timestamp": "2026-02-25 22:08:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Exception occurred at creating instance: Instance 132 is not in running state after polling interval",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3589,
+        "timestamp": "2026-02-25 22:08:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "ERROR",
+        "message": "Exception occurred at creating instance: Instance 132 is not in running state after polling interval",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3593,
+        "timestamp": "2026-02-25 22:08:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:VM Backup failed: Exception occurred at creating instance, check logs",
+        "error_type": null,
+        "failure_category": "Runtime Exception",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3607,
+        "timestamp": "2026-02-25 22:08:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "EXCEPTION",
+        "message": "assert False, f\"Exception occurred at creating instance, check logs\"",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 132, in test_create_instance_add_vm_backup"
+        ]
+    },
+    {
+        "line_number": 3608,
+        "timestamp": "2026-02-25 22:08:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "EXCEPTION",
+        "message": "AssertionError: Exception occurred at creating instance, check logs",
+        "error_type": "AssertionError",
+        "failure_category": "Test Logic Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 132, in test_create_instance_add_vm_backup"
+        ]
+    },
+    {
+        "line_number": 3610,
+        "timestamp": "2026-02-25 22:08:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "ERROR",
+        "message": "VM Backup failed: Exception occurred at creating instance, check logs",
+        "error_type": null,
+        "failure_category": "Runtime Exception",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 132, in test_create_instance_add_vm_backup"
+        ]
+    },
+    {
+        "line_number": 3627,
+        "timestamp": "2026-02-25 22:08:56",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 132, in test_create_instance_add_vm_backup"
+        ]
+    },
+    {
+        "line_number": 3695,
+        "timestamp": "2026-02-25 22:09:02",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3723,
+        "timestamp": "2026-02-25 22:09:13",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "ERROR",
+        "message": "Instance status : Failed",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3732,
+        "timestamp": "2026-02-25 22:09:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Exception occurred at creating instance: assert False",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3736,
+        "timestamp": "2026-02-25 22:09:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "ERROR",
+        "message": "Exception occurred at creating instance: assert False",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3740,
+        "timestamp": "2026-02-25 22:09:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Actual error is : Exception occurred at creating instance, check logs",
+        "error_type": null,
+        "failure_category": "Runtime Exception",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3742,
+        "timestamp": "2026-02-25 22:09:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "ERROR",
+        "message": "Actual error is : Exception occurred at creating instance, check logs",
+        "error_type": null,
+        "failure_category": "Runtime Exception",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3745,
+        "timestamp": "2026-02-25 22:09:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "WARNING",
+        "message": "Test failed, keeping instance 133 for debugging",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3746,
+        "timestamp": "2026-02-25 22:09:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3812,
+        "timestamp": "2026-02-25 22:09:20",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3844,
+        "timestamp": "2026-02-25 22:09:31",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Instance status : Failed",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3853,
+        "timestamp": "2026-02-25 22:09:31",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Exception occurred at verifying instance state: Instance is not in running state after creation",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3858,
+        "timestamp": "2026-02-25 22:09:31",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Exception occurred at verifying instance state: Instance is not in running state after creation",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3864,
+        "timestamp": "2026-02-25 22:09:31",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Actual error is : assert False",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3866,
+        "timestamp": "2026-02-25 22:09:31",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "Test failed, keeping instance 134 for debugging",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3867,
+        "timestamp": "2026-02-25 22:09:31",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 3977,
+        "timestamp": "2026-02-25 22:09:56",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4009,
+        "timestamp": "2026-02-25 22:10:29",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Instance status : Failed",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4018,
+        "timestamp": "2026-02-25 22:10:29",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Exception occurred at retrieving instance: Instance 135 is not in running state after polling interval",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4029,
+        "timestamp": "2026-02-25 22:10:29",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Exception occurred at retrieving instance: Instance 135 is not in running state after polling interval",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 934, in test_reconfigure_disks"
+        ]
+    },
+    {
+        "line_number": 4041,
+        "timestamp": "2026-02-25 22:10:29",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Actual error is : assert False",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 934, in test_reconfigure_disks"
+        ]
+    },
+    {
+        "line_number": 4043,
+        "timestamp": "2026-02-25 22:10:29",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "Test failed, keeping instance 135 for debugging",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 934, in test_reconfigure_disks"
+        ]
+    },
+    {
+        "line_number": 4044,
+        "timestamp": "2026-02-25 22:10:29",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 934, in test_reconfigure_disks"
+        ]
+    },
+    {
+        "line_number": 4140,
+        "timestamp": "2026-02-25 22:10:49",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4180,
+        "timestamp": "2026-02-25 22:11:13",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Instance status : Failed",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4189,
+        "timestamp": "2026-02-25 22:11:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Actual error is : Instance vme_instance_ftt_auto state failed after polling interval",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4193,
+        "timestamp": "2026-02-25 22:11:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Actual error is : Instance vme_instance_ftt_auto state failed after polling interval",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4198,
+        "timestamp": "2026-02-25 22:11:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "Test failed, keeping instance 136 for debugging",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4199,
+        "timestamp": "2026-02-25 22:11:14",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4295,
+        "timestamp": "2026-02-25 22:11:37",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4335,
+        "timestamp": "2026-02-25 22:12:00",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Instance status : Failed",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4344,
+        "timestamp": "2026-02-25 22:12:01",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:Actual error is : Instance vme_instance_fgh_auto state failed after polling interval",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4348,
+        "timestamp": "2026-02-25 22:12:01",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Actual error is : Instance vme_instance_fgh_auto state failed after polling interval",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4353,
+        "timestamp": "2026-02-25 22:12:01",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "Test failed, keeping instance 137 for debugging",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4354,
+        "timestamp": "2026-02-25 22:12:01",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "FAILED",
+        "message": "FAILED",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4436,
+        "timestamp": "2026-02-25 22:12:20",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4514,
+        "timestamp": "2026-02-25 22:12:26",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "No matching storage volume found with Datastore ID '12' in zone ID '1'.",
+        "error_type": null,
+        "failure_category": "Configuration Warning",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4556,
+        "timestamp": "2026-02-25 22:12:49",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Instance status : Failed",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4565,
+        "timestamp": "2026-02-25 22:12:50",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "morpheus_automation.tests.conftest:VM Clone failed: Instance 138 is not in running state after polling interval",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4576,
+        "timestamp": "2026-02-25 22:12:50",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "VM Clone failed: Instance 138 is not in running state after polling interval",
+        "error_type": null,
+        "failure_category": "Infrastructure Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 1660, in test_clone_instance"
+        ]
+    },
+    {
+        "line_number": 4588,
+        "timestamp": "2026-02-25 22:12:50",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "Test failed, keeping instance 138 for debugging",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": [
+            "  File \"/var/lib/jenkins/workspace/vme_build_qualify/morpheus_automation/tests/api/test_vme_beta_api.py\", line 1660, in test_clone_instance"
+        ]
+    },
+    {
+        "line_number": 4755,
+        "timestamp": "2026-02-25 22:17:01",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Expecting value: line 1 column 1 (char 0)",
+        "error_type": null,
+        "failure_category": "Unknown Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4757,
+        "timestamp": "2026-02-25 22:17:01",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "ERROR",
+        "message": "Jira authentication failed.",
+        "error_type": null,
+        "failure_category": "Authentication Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4779,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "WARNING",
+        "message": "Skipping 3 results with status_id UNTESTED (3) as it's not allowed.",
+        "error_type": null,
+        "failure_category": "Skipped Test",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4841,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "EXCEPTION",
+        "message": "E                   AssertionError: Exception occurred at creating instance, check logs",
+        "error_type": "AssertionError",
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4850,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "EXCEPTION",
+        "message": "assert False, f\"Exception occurred at creating instance, check logs\"",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4885,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "EXCEPTION",
+        "message": "assert False, \"Exception occurred during migration from a gfs2 datastore during resizing\"",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4887,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "EXCEPTION",
+        "message": "E           AssertionError: Exception occurred during migration from gfs2 to another storage type",
+        "error_type": "AssertionError",
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4893,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "EXCEPTION",
+        "message": "assert False, \"Exception occurred at creating instance, check logs\"",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 4927,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "EXCEPTION",
+        "message": "assert False, \"Exception occurred at migration between 2 gfs2 datastores\"",
+        "error_type": null,
+        "failure_category": "Test Logic Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5336,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py",
+        "test_name": "test_create_update_delete_datastore",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py::TestVMEStoragePlugin::test_create_update_delete_datastore[False]",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5337,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_create_instance_add_vm_backup",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_vme_beta_api.py::test_create_instance_add_vm_backup",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5338,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_from_gfs2_to_another_storage_type",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_gfs2_certification.py::TestGFS2::test_migrate_from_gfs2_to_another_storage_type",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5339,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_gfs2_certification.py",
+        "test_name": "test_migrate_volume_between_gfs2_datastores",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_gfs2_certification.py::TestGFS2::test_migrate_volume_between_gfs2_datastores",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5340,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_reconfigure_disks",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_vme_beta_api.py::test_reconfigure_disks[alletra]",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5341,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_manage_placement",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_vme_beta_api.py::test_manage_placement[auto-other]",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5342,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_manage_placement",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_vme_beta_api.py::test_manage_placement[pinned-other]",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    },
+    {
+        "line_number": 5343,
+        "timestamp": "2026-02-25 22:17:16",
+        "test_file": "morpheus_automation/tests/api/test_vme_beta_api.py",
+        "test_name": "test_clone_instance",
+        "status": "FAILED",
+        "message": "FAILED morpheus_automation/tests/api/test_vme_beta_api.py::test_clone_instance[other_ds]",
+        "error_type": null,
+        "failure_category": "API Error",
+        "stack_trace": null
+    }
+]

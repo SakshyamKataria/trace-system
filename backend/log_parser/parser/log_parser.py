@@ -1,15 +1,98 @@
+"""
+Jenkins log parser for TRACE integration.
+
+Two modes:
+  1. parse_log_content(build_id, log_text)  — new TRACE flow (from MinIO)
+  2. parse_log(file_path)                   — legacy local-file flow
+"""
+
 import re
 import json
 import os
 from collections import Counter
+from datetime import datetime
 
 
-# -----------------------------
-# FAILURE CLASSIFICATION
-# -----------------------------
+# ─── TRACE log format ─────────────────────────────────────────────────────────
+# Expected:  2026-03-15T08:10:10Z ERROR tests/test_user.py::test_get_user_by_id FAILED
+# Pattern:   <ISO-timestamp> <LEVEL> <message>
+_TRACE_LINE_RE = re.compile(
+    r"^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)\s+(INFO|WARN|ERROR)\s+(.+)$"
+)
+
+# ─── Stage detection heuristics ───────────────────────────────────────────────
+_STAGE_PATTERNS = [
+    (re.compile(r"\[Pipeline\]\s+stage", re.IGNORECASE), "Init"),
+    (re.compile(r"^\s*\+\s*docker", re.IGNORECASE), "Init"),
+    (re.compile(r"(compil|build|mvn|gradle|npm run build)", re.IGNORECASE), "Build"),
+    (re.compile(r"(test|pytest|junit|unittest|jest|mocha)", re.IGNORECASE), "Test"),
+    (re.compile(r"(Finished:|SUCCESS|FAILURE|result)", re.IGNORECASE), "Result"),
+]
+
+
+def _detect_stage(message: str) -> str | None:
+    """Try to infer a pipeline stage from the message content."""
+    for pattern, stage in _STAGE_PATTERNS:
+        if pattern.search(message):
+            return stage
+    return None
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TRACE flow — parse raw log text fetched from MinIO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def parse_log_content(build_id: str, log_text: str) -> list[dict]:
+    """
+    Parse raw Jenkins log text and return a list of event dicts
+    ready to be inserted into ``parsed_log_events``.
+
+    Each dict contains:
+        build_id, event_time, stage, level, message
+    """
+    events: list[dict] = []
+
+    for line in log_text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+
+        m = _TRACE_LINE_RE.match(stripped)
+        if m:
+            ts_str, level, message = m.group(1), m.group(2), m.group(3)
+            try:
+                event_time = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
+            except ValueError:
+                event_time = None
+            stage = _detect_stage(message)
+
+            events.append({
+                "build_id":   build_id,
+                "event_time": event_time,
+                "stage":      stage,
+                "level":      level,       # already uppercase from regex
+                "message":    message.strip(),
+            })
+        else:
+            # Non-matching lines → store with level=INFO, full line as message
+            events.append({
+                "build_id":   build_id,
+                "event_time": None,
+                "stage":      _detect_stage(stripped),
+                "level":      "INFO",
+                "message":    stripped,
+            })
+
+    print(f"[Parser] Parsed {len(events)} events for build_id={build_id}")
+    return events
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Legacy flow — parse from a local file  (kept for backward compatibility)
+# ═══════════════════════════════════════════════════════════════════════════════
+
 def classify_failure(message):
     msg = message.lower()
-
     if "authentication failed" in msg or "jira authentication" in msg:
         return "Authentication Error"
     if "not in running state" in msg or "instance status : failed" in msg:
@@ -30,24 +113,14 @@ def classify_failure(message):
         return "Migration Error"
     if "skipping" in msg:
         return "Skipped Test"
-
     return "Unknown Error"
 
 
-# -----------------------------
-# MAIN PARSER
-# -----------------------------
 def parse_log(file_path):
     """
-    Parse the entire Jenkins log file and extract ALL meaningful events:
-      - ERROR lines
-      - WARNING lines
-      - FAILED test results
-      - PASSED test results
-      - Exception lines
-      - Test summary (pytest output at the bottom)
+    Legacy parser: reads a local log file and returns (events, summary).
+    Kept for backward compatibility and local development.
     """
-
     with open(file_path, "r", encoding="utf-8", errors="replace") as f:
         raw_lines = f.readlines()
 
@@ -58,27 +131,21 @@ def parse_log(file_path):
     current_test_name = None
     current_test_file = None
 
-    # ── Track the latest timestamp & test context as we scan ──────────────
     for idx, line in enumerate(raw_lines):
         stripped = line.strip()
         if not stripped:
             continue
 
-        # Update running timestamp
         ts_match = re.search(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", line)
         if ts_match:
             current_timestamp = ts_match.group()
 
-        # Track current test from pytest output  e.g.
-        # morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py::TestVMEStoragePlugin::test_create_update_storage_server
         test_ctx = re.match(
             r"([\w/\\]+\.py)::(\w+)(?:::(\w+))?\s", stripped
         )
         if test_ctx:
             current_test_file = test_ctx.group(1)
             current_test_name = test_ctx.group(3) or test_ctx.group(2)
-
-        # ── Detect events ──────────────────────────────────────────────────
 
         is_error = bool(re.search(r"\bERROR\b", line))
         is_warning = bool(re.search(r"\bWARNING\b", line))
@@ -91,20 +158,13 @@ def parse_log(file_path):
         if not (is_error or is_warning or is_failed or is_passed or is_exception):
             continue
 
-        # Skip duplicated Python-logging lines (e.g.
-        # "INFO:module.name:msg" immediately followed by
-        # "2026-02-25 21:12:04 MST file.py:NNN  INFO : msg")
-        # Keep only the timestamped variant to avoid double-counting.
         if stripped.startswith(("ERROR:", "WARNING:", "INFO:")):
-            # This is the python-logging short form; the next line is the
-            # timestamped equivalent.  Skip this one.
             if (
                 idx + 1 < len(raw_lines)
                 and re.search(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", raw_lines[idx + 1])
             ):
                 continue
 
-        # Determine event level / status
         if is_failed:
             status = "FAILED"
         elif is_passed:
@@ -116,11 +176,9 @@ def parse_log(file_path):
         else:
             status = "EXCEPTION"
 
-        # ── Extract test file/name from FAILED summary lines ──────────────
         test_file = current_test_file
         test_name = current_test_name
 
-        # Summary FAILED line:  FAILED morpheus_automation/.../test_foo.py::Class::method
         fail_detail = re.match(
             r"FAILED\s+([\w/\\]+\.py)::(\w+)(?:::(\w+))?", stripped
         )
@@ -128,26 +186,20 @@ def parse_log(file_path):
             test_file = fail_detail.group(1)
             test_name = fail_detail.group(3) or fail_detail.group(2)
 
-        # ── Extract error type (AssertionError, ValueError, etc.) ─────────
         error_type = None
         et_match = re.search(r"\b([A-Za-z]+(?:Error|Exception))\b", line)
         if et_match:
             error_type = et_match.group(1)
 
-        # ── Extract the message content ───────────────────────────────────
-        # Try to get the part after "ERROR :" or "WARNING :" etc.
         msg_match = re.search(
             r"(?:ERROR|WARNING|INFO)\s*:\s*(.+)", stripped
         )
         message = msg_match.group(1).strip() if msg_match else stripped
 
-        # ── Classify ──────────────────────────────────────────────────────
         failure_category = None
         if status in ("FAILED", "ERROR", "EXCEPTION", "WARNING"):
             failure_category = classify_failure(message)
 
-        # ── Gather small stack-trace window (3 lines above if they are
-        #    "  File ..." lines) ──────────────────────────────────────────
         stack_trace = []
         look_start = max(0, idx - 10)
         for wline in raw_lines[look_start:idx]:
@@ -167,7 +219,6 @@ def parse_log(file_path):
         }
         all_events.append(event)
 
-    # ── De-duplicate by (message, timestamp) ────────────────────────────────
     seen = set()
     unique_events = []
     for e in all_events:
@@ -179,43 +230,20 @@ def parse_log(file_path):
     all_events = unique_events
     print(f"[DEBUG] Total unique events extracted: {len(all_events)}")
 
-    # ── Split into categories for counts ────────────────────────────────────
     errors = [e for e in all_events if e["status"] == "ERROR"]
     warnings = [e for e in all_events if e["status"] == "WARNING"]
     failures = [e for e in all_events if e["status"] == "FAILED"]
     passes = [e for e in all_events if e["status"] == "PASSED"]
     exceptions = [e for e in all_events if e["status"] == "EXCEPTION"]
 
-    print(f"[DEBUG]   ERRORS: {len(errors)}")
-    print(f"[DEBUG]   WARNINGS: {len(warnings)}")
-    print(f"[DEBUG]   FAILURES: {len(failures)}")
-    print(f"[DEBUG]   PASSED: {len(passes)}")
-    print(f"[DEBUG]   EXCEPTIONS: {len(exceptions)}")
-
-    # ── Save detailed JSON ───────────────────────────────────────────────────
     os.makedirs("output", exist_ok=True)
-
     with open("output/parsed_logs.json", "w") as f:
         json.dump(all_events, f, indent=4)
 
-    # ── Build summary ────────────────────────────────────────────────────────
-    categories = [
-        e["failure_category"]
-        for e in all_events
-        if e["failure_category"]
-    ]
-    failed_tests = list(
-        set(e["test_name"] for e in failures if e["test_name"])
-    )
-    passed_tests = list(
-        set(e["test_name"] for e in passes if e["test_name"])
-    )
-
-    category_counts = dict(Counter(categories).most_common())
-
-    # Top error messages
+    categories = [e["failure_category"] for e in all_events if e["failure_category"]]
+    failed_tests = list(set(e["test_name"] for e in failures if e["test_name"]))
+    passed_tests = list(set(e["test_name"] for e in passes if e["test_name"]))
     error_messages = [e["message"][:120] for e in errors + failures + exceptions]
-    top_messages = dict(Counter(error_messages).most_common(10))
 
     summary = {
         "total_lines_parsed": len(raw_lines),
@@ -227,17 +255,14 @@ def parse_log(file_path):
         "exception_count": len(exceptions),
         "failed_tests": failed_tests,
         "passed_tests": passed_tests,
-        "failure_category_breakdown": category_counts,
-        "top_error_messages": top_messages,
+        "failure_category_breakdown": dict(Counter(categories).most_common()),
+        "top_error_messages": dict(Counter(error_messages).most_common(10)),
         "most_common_failure_category": (
             Counter(categories).most_common(1)[0][0] if categories else None
         ),
-        # kept for backward compat with the PostgreSQL schema
         "total_failures": len(failures),
         "most_common_failure_reason": (
-            Counter(error_messages).most_common(1)[0][0]
-            if error_messages
-            else None
+            Counter(error_messages).most_common(1)[0][0] if error_messages else None
         ),
     }
 

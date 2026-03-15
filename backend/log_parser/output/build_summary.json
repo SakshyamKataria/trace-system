@@ -1,0 +1,51 @@
+{
+    "total_lines_parsed": 5410,
+    "total_events": 111,
+    "error_count": 41,
+    "warning_count": 31,
+    "failure_count": 17,
+    "passed_count": 14,
+    "exception_count": 8,
+    "failed_tests": [
+        "test_create_instance_add_vm_backup",
+        "test_clone_instance",
+        "test_migrate_volume_between_gfs2_datastores",
+        "test_create_update_delete_datastore",
+        "test_manage_placement",
+        "test_migrate_from_gfs2_to_another_storage_type",
+        "test_reconfigure_disks",
+        "test_create_update_storage_server"
+    ],
+    "passed_tests": [
+        "test_create_gfs2_datastore",
+        "test_create_instance_add_vm_backup",
+        "test_create_update_storage_server",
+        "test_migrate_vm_from_one_datastore_to_another"
+    ],
+    "failure_category_breakdown": {
+        "Unknown Error": 24,
+        "Configuration Warning": 20,
+        "Infrastructure Error": 15,
+        "Test Logic Error": 12,
+        "API Error": 10,
+        "Configuration Error": 4,
+        "Authentication Error": 4,
+        "Skipped Test": 4,
+        "Runtime Exception": 4
+    },
+    "top_error_messages": {
+        "FAILED": 8,
+        "Instance status : Failed": 7,
+        "Expecting value: line 1 column 1 (char 0)": 3,
+        "Jira authentication failed.": 3,
+        "morpheus_automation.tests.conftest:Actual error is: storage cluster id is missing from config in datastore alletra_datas": 2,
+        "Actual error is : assert False": 2,
+        "FAILED morpheus_automation/tests/api/test_vme_storage_plugin_e2e.py::TestVMEStoragePlugin::test_create_update_delete_dat": 2,
+        "assert False, f\"Exception occurred at creating instance, check logs\"": 2,
+        "Actual error is: storage cluster id is missing from config in datastore alletra_datastore_abgrdg_dnd creation": 1,
+        "morpheus_automation.tests.conftest:Deleted instance: 200": 1
+    },
+    "most_common_failure_category": "Unknown Error",
+    "total_failures": 17,
+    "most_common_failure_reason": "FAILED"
+}
