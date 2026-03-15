@@ -11,6 +11,10 @@ class LogIngestRequest(BaseModel):
     timestamp: datetime
     log: str
 
+    @field_validator("status")
+    @classmethod
+    def normalize_status(cls, v):
+        return v.lower()
 
 class BuildResponse(BaseModel):
     build_id: str
