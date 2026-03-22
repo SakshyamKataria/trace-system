@@ -30,14 +30,27 @@ def parse_build(build_id: str):
 
     db = SessionLocal()
     try:
-        # ── Step 1: Verify build_id exists in build_metadata ──────────────
+        # ── Step 1: Verify / auto-register build_id in build_metadata ────────
         print("\n══════════════════════════════════════════")
         print("  Step 1 ▸ Looking up build metadata")
         print("══════════════════════════════════════════")
         build = db.query(BuildMetadata).filter_by(build_id=build_id).first()
         if not build:
-            print(f"[ERROR] build_id '{build_id}' not found in build_metadata")
-            sys.exit(1)
+            print(f"  [INFO] build_id '{build_id}' not found in build_metadata.")
+            print(f"  [INFO] Auto-registering a placeholder record (manual MinIO upload detected).")
+            from datetime import datetime as _dt
+            build = BuildMetadata(
+                build_id  = build_id,
+                project   = "MANUAL",
+                branch    = "unknown",
+                commit_id = "unknown",
+                status    = "unknown",
+                timestamp = _dt.utcnow(),
+                log_path  = f"minio://trace-logs/{build_id}",
+            )
+            db.add(build)
+            db.commit()
+            db.refresh(build)
         print(f"  Found: project={build.project}, branch={build.branch}, "
               f"status={build.status}")
 

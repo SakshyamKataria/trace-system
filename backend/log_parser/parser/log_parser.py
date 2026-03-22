@@ -46,9 +46,7 @@ def parse_log_content(build_id: str, log_text: str) -> list[dict]:
     """
     Parse raw Jenkins log text and return a list of event dicts
     ready to be inserted into ``parsed_log_events``.
-
-    Each dict contains:
-        build_id, event_time, stage, level, message
+    Filters for meaningful lines (ERROR, WARN, FAILED, PASSED, EXCEPTION).
     """
     events: list[dict] = []
 
@@ -57,9 +55,29 @@ def parse_log_content(build_id: str, log_text: str) -> list[dict]:
         if not stripped:
             continue
 
+        # Filter out noise: only keep errors, warnings, failures, exceptions, and passes
+        is_error = bool(re.search(r"\bERROR\b", line))
+        is_warning = bool(re.search(r"\bWARNING\b", line) or re.search(r"\bWARN\b", line))
+        is_failed = bool(re.search(r"\bFAILED\b", line))
+        is_passed = stripped == "PASSED" or bool(re.match(r"PASSED\s+\[", stripped))
+        is_exception = bool(re.search(r"\b(Exception|Error)\b", line)) and not is_error and not is_warning
+
+        if not (is_error or is_warning or is_failed or is_passed or is_exception):
+            continue
+
+        # Determine level
+        level_guess = "INFO"
+        if is_error or is_failed or is_exception:
+            level_guess = "ERROR"
+        elif is_warning:
+            level_guess = "WARN"
+
         m = _TRACE_LINE_RE.match(stripped)
         if m:
-            ts_str, level, message = m.group(1), m.group(2), m.group(3)
+            ts_str, level_from_regex, message = m.group(1), m.group(2), m.group(3)
+            # Override level if regex matches
+            if level_from_regex in ["ERROR", "WARN"]:
+                level_guess = level_from_regex
             try:
                 event_time = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
             except ValueError:
@@ -70,20 +88,19 @@ def parse_log_content(build_id: str, log_text: str) -> list[dict]:
                 "build_id":   build_id,
                 "event_time": event_time,
                 "stage":      stage,
-                "level":      level,       # already uppercase from regex
+                "level":      level_guess,
                 "message":    message.strip(),
             })
         else:
-            # Non-matching lines → store with level=INFO, full line as message
             events.append({
                 "build_id":   build_id,
                 "event_time": None,
                 "stage":      _detect_stage(stripped),
-                "level":      "INFO",
+                "level":      level_guess,
                 "message":    stripped,
             })
 
-    print(f"[Parser] Parsed {len(events)} events for build_id={build_id}")
+    print(f"[Parser] Extracted {len(events)} meaningful events for build_id={build_id}")
     return events
 
 
