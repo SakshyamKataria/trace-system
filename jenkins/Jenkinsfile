@@ -13,7 +13,7 @@ pipeline {
                 script {
                     // Run pytest — capture output and exit code
                     def result = sh(
-                        script: 'cd jenkins && python3 -m pytest tests/ -v --tb=short 2>&1 | tee /tmp/pytest_output.txt',
+                        script: 'cd jenkins && set -o pipefail && python3 -m pytest tests/ -v --tb=short 2>&1 | tee /tmp/pytest_output.txt',
                         returnStatus: true
                     )
                     env.PYTEST_EXIT_CODE = "${result}"
