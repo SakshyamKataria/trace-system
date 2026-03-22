@@ -13,7 +13,7 @@ pipeline {
                 script {
                     // Run pytest — capture output and exit code
                     def result = sh(
-                        script: 'cd jenkins && python3 -m pytest tests/ -v --tb=short 2>&1 | tee /tmp/pytest_output.txt',
+                        script: 'cd jenkins && set -o pipefail && python3 -m pytest tests/ -v --tb=short 2>&1 | tee /tmp/pytest_output.txt',
                         returnStatus: true
                     )
                     env.PYTEST_EXIT_CODE = "${result}"
@@ -26,24 +26,26 @@ pipeline {
                 script {
                     def pytestOutput = readFile('/tmp/pytest_output.txt').trim()
                     def buildStatus = (env.PYTEST_EXIT_CODE == '0') ? 'success' : 'failure'
+                    def buildId = "${env.JOB_NAME}-${env.BUILD_NUMBER}".replace("/", "-")
+                    def branch = "${env.GIT_BRANCH ?: 'main'}".replace("origin/", "")
+                    def commitId = "${env.GIT_COMMIT ?: 'no-commit'}"
+
+                    // Safely escape the log for Python using JsonOutput
+                    def escapedLog = groovy.json.JsonOutput.toJson(pytestOutput)
 
                     writeFile file: '/tmp/send_log.py', text: """
 import requests
-import json
 from datetime import datetime
 
 payload = {
-    "build_id": "jenkins-${env.BUILD_NUMBER}-${env.JOB_NAME}".replace("/", "-"),
-    "project": "${env.JOB_NAME}",
-    "branch": "main",
-    "commit_id": "${env.GIT_COMMIT ?: 'no-commit'}",
-    "status": "${buildStatus}",
+    "build_id": "${buildId}",
+    "project":  "${env.JOB_NAME}",
+    "branch":   "${branch}",
+    "commit_id":"${commitId}",
+    "status":   "${buildStatus}",
     "timestamp": datetime.utcnow().isoformat(),
-    "log": json.dumps(${groovy.json.JsonOutput.toJson(pytestOutput)})
+    "log": ${escapedLog}
 }
-
-# The log field was double-encoded above; fix it
-payload["log"] = json.loads(payload["log"])
 
 try:
     resp = requests.post(
@@ -63,7 +65,16 @@ except Exception as e:
 
     post {
         always {
-            echo 'Pipeline complete.'
+            echo "=========================================="
+            echo "Build: #${env.BUILD_NUMBER} | Job: ${env.JOB_NAME}"
+            echo "Exit Code: ${env.PYTEST_EXIT_CODE}"
+            echo "=========================================="
+        }
+        failure {
+            echo "Pipeline FAILED — check TRACE dashboard for analysis."
+        }
+        success {
+            echo "Pipeline PASSED."
         }
     }
 }
