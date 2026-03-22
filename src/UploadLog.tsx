@@ -8,6 +8,9 @@ const navigate = useNavigate();
 const [log,setLog] = useState("");
 const [result,setResult] = useState<any>(null);
 
+/* NEW: build ID state */
+const [buildId,setBuildId] = useState("");
+
 const handleFile = async(e:any)=>{
 
 const file = e.target.files[0];
@@ -21,11 +24,34 @@ const analyze = async()=>{
 const res = await fetch("http://127.0.0.1:8000/analyze",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({log})
+/* NEW: sending buildId */
+body:JSON.stringify({log, buildId})
 });
 
 const data = await res.json();
 setResult(data.result);
+
+/* save result for History page */
+
+const stored = localStorage.getItem("logHistory");
+const history = stored ? JSON.parse(stored) : [];
+
+history.unshift({
+/* NEW: storing buildId */
+build_id: buildId,
+failure_type:data.result.failure_type,
+root_cause:data.result.root_cause,
+confidence:data.result.confidence,
+time:new Date().toLocaleString()
+});
+
+localStorage.setItem("logHistory",JSON.stringify(history));
+
+/* redirect to History dashboard */
+
+setTimeout(()=>{
+navigate("/history");
+},1000);
 
 };
 
@@ -95,6 +121,15 @@ border-radius:8px;
 
 <input type="file" onChange={handleFile}/>
 
+{/* NEW: Build ID input */}
+<input
+type="text"
+placeholder="Enter Jenkins Build ID"
+value={buildId}
+onChange={(e)=>setBuildId(e.target.value)}
+className="w-full log-textarea"
+/>
+
 <textarea
 rows={6}
 value={log}
@@ -109,6 +144,7 @@ Analyze
 
 <div className="result-box">
 
+<p><strong>Build ID:</strong> {buildId}</p>
 <p><strong>Failure:</strong> {result.failure_type}</p>
 <p><strong>Root Cause:</strong> {result.root_cause}</p>
 <p><strong>Confidence:</strong> {result.confidence}%</p>
