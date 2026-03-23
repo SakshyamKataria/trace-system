@@ -70,6 +70,26 @@ services:
     depends_on:
       - backend
 
+  minio-watcher:
+    build:
+      context: ./backend
+      dockerfile: minio_watcher/Dockerfile
+    container_name: trace-minio-watcher
+    depends_on:
+      - postgres
+      - minio
+    environment:
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_BUCKET: trace-logs
+      PG_HOST: postgres
+      PG_USER: trace_user
+      PG_PASSWORD: trace_pass
+      PG_DB: trace_db
+      RECONNECT_DELAY: "5"
+    restart: always
+
 volumes:
   trace_pgdata:
   trace_minio_data:

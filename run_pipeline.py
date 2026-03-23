@@ -51,9 +51,13 @@ def parse_args():
     parser.add_argument("--list",  "-l", action="store_true",
                         help="List all log files currently stored in MinIO")
     parser.add_argument("--build-id", "-b",
-                        help="Build ID to parse (e.g. build-6). Required unless --list is used.")
+                        help="Build ID to parse / delete (e.g. build-6). Required unless --list is used.")
     parser.add_argument("--file", "-f",
                         help="Path to a local log file. If given, the file is uploaded first.")
+    parser.add_argument("--delete", "-d", action="store_true",
+                        help="Delete all parsed data for --build-id from PostgreSQL.")
+    parser.add_argument("--delete-from-minio", action="store_true",
+                        help="Also remove the raw log from MinIO (use together with --delete).")
     parser.add_argument("--project",   default="TRACE",              help="Project name (default: TRACE)")
     parser.add_argument("--branch",    default="feature/log-parser", help="Git branch")
     parser.add_argument("--commit-id", default="abc123def456",       help="Commit hash")
@@ -137,6 +141,52 @@ def step_parse(build_id: str, step_prefix: str = "[4/4]") -> None:
         sys.exit(result.returncode)
 
 
+def step_delete(build_id: str, delete_from_minio: bool = False) -> None:
+    """Remove parsed data for build_id from PostgreSQL (and optionally from MinIO)."""
+    print(f"\n[DELETE] Removing data for build_id={build_id}...")
+    env = os.environ.copy()
+    env["PG_HOST"]        = PG_HOST
+    env["MINIO_ENDPOINT"] = MINIO_ENDPOINT
+
+    # Run delete_build_data() via main.py
+    delete_script = (
+        f"import sys; sys.path.insert(0, '.');"
+        f"from main import delete_build_data; delete_build_data({build_id!r})"
+    )
+    result = subprocess.run(
+        [sys.executable, "-c", delete_script],
+        cwd=PARSER_DIR,
+        env=env,
+    )
+    if result.returncode != 0:
+        print(f"\n      ❌ Delete step exited with code {result.returncode}.")
+        sys.exit(result.returncode)
+
+    if delete_from_minio:
+        print(f"\n[DELETE] Also removing raw log from MinIO...")
+        # Try both naming conventions: build-N.log (standard) and build-N (raw)
+        removed = False
+        for obj_name in [f"{build_id}.log", build_id]:
+            minio_script = (
+                "import sys, os; sys.path.insert(0, '.');"
+                "from minio import Minio; from minio.error import S3Error;"
+                f"client = Minio(os.getenv('MINIO_ENDPOINT','localhost:9000'),"
+                f"access_key=os.getenv('MINIO_ACCESS_KEY','minioadmin'),"
+                f"secret_key=os.getenv('MINIO_SECRET_KEY','minioadmin'),secure=False);"
+                f"client.remove_object(os.getenv('MINIO_BUCKET','trace-logs'), {obj_name!r})"
+            )
+            res = subprocess.run(
+                [sys.executable, "-c", minio_script],
+                cwd=PARSER_DIR, env=env, capture_output=True, text=True,
+            )
+            if res.returncode == 0:
+                print(f"      ✅ Removed MinIO object: {obj_name}")
+                removed = True
+                break
+        if not removed:
+            print(f"      ⚠️  No MinIO object found for build_id={build_id!r}")
+
+
 def main():
     args = parse_args()
 
@@ -153,6 +203,23 @@ def main():
         print("❌ --build-id is required unless you use --list.")
         print("   Run: python run_pipeline.py --help")
         sys.exit(1)
+
+    # ── MODE: --delete ────────────────────────────────────────────────────────
+    if args.delete:
+        print("=" * 50)
+        print("  TRACE Log Pipeline — Delete Mode")
+        print("=" * 50)
+        print(f"  Build ID         : {args.build_id}")
+        print(f"  Delete from MinIO: {args.delete_from_minio}")
+        print("=" * 50)
+        step_delete(args.build_id, delete_from_minio=args.delete_from_minio)
+        print("\n" + "=" * 50)
+        print("  🗑️  Delete complete!")
+        print(f"     build_id={args.build_id} removed from PostgreSQL.")
+        if args.delete_from_minio:
+            print(f"     Raw log also removed from MinIO.")
+        print("=" * 50 + "\n")
+        return
 
     # ── MODE 2: --build-id only (parse existing MinIO log) ───────────────────
     if not args.file:

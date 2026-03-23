@@ -71,6 +71,21 @@ def parse_build(build_id: str):
         print("\n══════════════════════════════════════════")
         print("  Step 4 ▸ Inserting events into PostgreSQL")
         print("══════════════════════════════════════════")
+
+        # Idempotency: clear any existing events for this build before inserting.
+        # This ensures re-uploading the same file refreshes the data instead of
+        # creating duplicate rows.
+        existing_count = (
+            db.query(ParsedLogEvent)
+            .filter(ParsedLogEvent.build_id == build_id)
+            .count()
+        )
+        if existing_count > 0:
+            db.query(ParsedLogEvent).filter(
+                ParsedLogEvent.build_id == build_id
+            ).delete(synchronize_session=False)
+            print(f"  [Idempotency] Cleared {existing_count} old rows for build_id={build_id!r}")
+
         for evt in events:
             db.add(ParsedLogEvent(
                 build_id=evt["build_id"],
@@ -89,6 +104,57 @@ def parse_build(build_id: str):
         print(f"     Events saved : {len(events)}")
         print("══════════════════════════════════════════\n")
 
+    finally:
+        db.close()
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Delete flow — remove parsed data from PostgreSQL for a given build_id
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def delete_build_data(build_id: str):
+    """
+    Remove all parsed data for build_id from PostgreSQL:
+      1. Delete all rows from parsed_log_events
+      2. Delete the row from build_metadata
+    """
+    # Ensure tables exist before querying
+    Base.metadata.create_all(bind=engine)
+
+    db = SessionLocal()
+    try:
+        print("\n══════════════════════════════════════════")
+        print("  Delete ▸ Removing parsed data from PostgreSQL")
+        print("══════════════════════════════════════════")
+
+        # Step 1: Delete parsed_log_events
+        deleted_events = (
+            db.query(ParsedLogEvent)
+            .filter(ParsedLogEvent.build_id == build_id)
+            .delete(synchronize_session=False)
+        )
+        print(f"  Deleted {deleted_events} rows from parsed_log_events")
+
+        # Step 2: Delete build_metadata row
+        deleted_meta = (
+            db.query(BuildMetadata)
+            .filter(BuildMetadata.build_id == build_id)
+            .delete(synchronize_session=False)
+        )
+        print(f"  Deleted {deleted_meta} rows from build_metadata")
+
+        db.commit()
+
+        print("\n══════════════════════════════════════════")
+        print("  ✅ Deletion complete!")
+        print(f"     build_id : {build_id}")
+        print(f"     Events   : -{deleted_events}  |  Metadata : -{deleted_meta}")
+        print("══════════════════════════════════════════\n")
+
+    except Exception as exc:
+        db.rollback()
+        print(f"  ❌ Error deleting build_id={build_id!r}: {exc}")
+        raise
     finally:
         db.close()
 
