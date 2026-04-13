@@ -3,20 +3,39 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
+        stage('Generate Build Logs') {
             steps {
-                git branch: 'develop', url: 'https://github.com/SakshyamKataria/trace-system.git'
-            }
+                sh '''
+echo "INFO: Build started"
+echo "WARNING: Memory usage high"
+echo "ERROR: Database connection failed"
+echo "INFO: Build completed"
+'''
+}
         }
-
-        stage('Read Raw Log File') {
+                      
+        stage('Capture Logs') {
             steps {
                 script {
-                    // Read full raw log file
-                    def logContent = readFile('logs/jenkins_log.txt')
 
-                    // Escape quotes for JSON format
-                    logContent = logContent.replace('"', '\\"')
+                    // 🔥 Toggle mode
+                    def useStatic = false   // true = mentor log, false = real Jenkins logs
+
+                    def logContent = ""
+
+                    if (useStatic) {
+                        // ✅ Mentor log file
+                        logContent = readFile('logs/jenkins_log.txt')
+                    } else {
+                        // ✅ Real Jenkins console logs (SAFE version)
+                        logContent = currentBuild.rawBuild.getLog(1000).join("\n")
+                    }
+
+                    // Escape JSON-breaking characters
+                    logContent = logContent
+                        .replace("\\", "\\\\")
+                        .replace("\"", "\\\"")
+                        .replace("\n", "\\n")
 
                     // Create JSON payload
                     writeFile file: 'log.json', text: """
@@ -46,4 +65,8 @@ curl -X POST http://host.docker.internal:8000/api/v1/ingest-log \
             }
         }
     }
-}
+}   
+
+
+
+

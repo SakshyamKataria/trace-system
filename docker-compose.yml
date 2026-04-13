@@ -5,7 +5,8 @@ services:
   postgres:
     image: postgres:15
     container_name: trace-postgres
-    environment:
+    environment:                              
+
       POSTGRES_USER: trace_user
       POSTGRES_PASSWORD: trace_pass
       POSTGRES_DB: trace_db
