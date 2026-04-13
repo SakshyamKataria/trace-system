@@ -1,0 +1,9 @@
+{
+  "build_id": "build-001",
+  "project": "trace-system",
+  "branch": "main",
+  "commit_id": "abc123",
+  "status": "SUCCESS",
+  "timestamp": "2026-03-21T12:00:00",
+  "log": "ERROR: db failed"
+}
