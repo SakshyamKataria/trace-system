@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    // Run pytest — capture output and exit code
+                    def result = sh(
+                        script: 'cd jenkins && set -o pipefail && python3 -m pytest tests/ -v --tb=short 2>&1 | tee /tmp/pytest_output.txt',
+                        returnStatus: true
+                    )
+                    env.PYTEST_EXIT_CODE = "${result}"
+                }
+            }
+        }
+
+        stage('Send Log to TRACE') {
+            steps {
+                script {
+                    def pytestOutput = readFile('/tmp/pytest_output.txt').trim()
+                    def buildStatus = (env.PYTEST_EXIT_CODE == '0') ? 'success' : 'failure'
+                    def buildId = "${env.JOB_NAME}-${env.BUILD_NUMBER}".replace("/", "-")
+                    def branch = "${env.GIT_BRANCH ?: 'main'}".replace("origin/", "")
+                    def commitId = "${env.GIT_COMMIT ?: 'no-commit'}"
+
+                    // Safely escape the log for Python using JsonOutput
+                    def escapedLog = groovy.json.JsonOutput.toJson(pytestOutput)
+
+                    writeFile file: '/tmp/send_log.py', text: """
+import requests
+from datetime import datetime
+
+payload = {
+    "build_id": "${buildId}",
+    "project":  "${env.JOB_NAME}",
+    "branch":   "${branch}",
+    "commit_id":"${commitId}",
+    "status":   "${buildStatus}",
+    "timestamp": datetime.utcnow().isoformat(),
+    "log": ${escapedLog}
+}
+
+try:
+    resp = requests.post(
+        "http://trace-backend:8000/api/v1/ingest-log",
+        json=payload,
+        timeout=10
+    )
+    print(f"TRACE response [{resp.status_code}]: {resp.text}")
+except Exception as e:
+    print(f"Failed to send log to TRACE: {e}")
+"""
+                    sh 'python3 /tmp/send_log.py'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "=========================================="
+            echo "Build: #${env.BUILD_NUMBER} | Job: ${env.JOB_NAME}"
+            echo "Exit Code: ${env.PYTEST_EXIT_CODE}"
+            echo "=========================================="
+        }
+        failure {
+            echo "Pipeline FAILED — check TRACE dashboard for analysis."
+        }
+        success {
+            echo "Pipeline PASSED."
+        }
+    }
+}
