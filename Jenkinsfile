@@ -3,6 +3,14 @@ pipeline {
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                checkout scm
+                echo "Checked out branch: ${env.GIT_BRANCH}"
+                echo "Checked out commit: ${env.GIT_COMMIT}"
+            }
+        }
+
         stage('Generate Build Logs') {
             steps {
                 sh '''
