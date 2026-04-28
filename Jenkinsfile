@@ -25,38 +25,48 @@ echo "INFO: Build completed"
         stage('Capture Logs') {
             steps {
                 script {
+                    
+                    // Capture actual live Jenkins console output
+                    def logContent = currentBuild.rawBuild.getLog(1000).join("\n")
 
-                    // 🔥 Toggle mode
-                    def useStatic = false   // true = mentor log, false = real Jenkins logs
+                    // Get real build duration and result
+                    def buildDuration = currentBuild.durationString?.replace(" and counting", "") ?: "Unknown"
+                    def finalStatus = currentBuild.currentResult ?: "SUCCESS"
 
-                    def logContent = ""
+                    // Inject metadata header into the top of the logs
+                    def enrichedLog = """
+========================================
+BUILD METADATA
+----------------------------------------
+Job Name: ${env.JOB_NAME}
+Build #: ${env.BUILD_NUMBER}
+Branch: ${env.GIT_BRANCH}
+Commit: ${env.GIT_COMMIT}
+Status: ${finalStatus}
+Duration: ${buildDuration}
+========================================
 
-                    if (useStatic) {
-                        // ✅ Mentor log file
-                        logContent = readFile('logs/jenkins_log.txt')
-                    } else {
-                        // ✅ Real Jenkins console logs (SAFE version)
-                        logContent = currentBuild.rawBuild.getLog(1000).join("\n")
-                    }
-
+CONSOLE OUTPUT
+----------------------------------------
+${logContent}
+"""
+                    
                     // Escape JSON-breaking characters
-                    logContent = logContent
+                    def escapedLogContent = enrichedLog
                         .replace("\\", "\\\\")
                         .replace("\"", "\\\"")
                         .replace("\n", "\\n")
 
-                    // Create JSON payload
+                    // Create structured data payload
                     writeFile file: 'log.json', text: """
 {
-  "build_id": "build-${env.BUILD_NUMBER}",
-  "job_name": "jenkins-job",
-  "build_number": ${env.BUILD_NUMBER},
-  "status": "SUCCESS",
-  "project": "trace-system",
-  "branch": "develop",
-  "commit_id": "abc123",
+  "build_id": "${env.JOB_NAME}-${env.BUILD_NUMBER}",
+  "project": "${env.JOB_NAME}",
+  "branch": "${env.GIT_BRANCH}",
+  "commit_id": "${env.GIT_COMMIT}",
+  "status": "${finalStatus}",
   "timestamp": "${new Date().format("yyyy-MM-dd'T'HH:mm:ss")}",
-  "log": "${logContent}"
+  "log": "${escapedLogContent}"
 }
 """
                 }
