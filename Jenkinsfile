@@ -66,14 +66,14 @@ echo "INFO: Build completed"
         stage('Send Logs to Backend') {
             steps {
                 sh '''
-curl -X POST http://host.docker.internal:8000/api/v1/ingest-log \
+curl -X POST http://trace-backend:8000/api/v1/ingest-log \
 -H "Content-Type: application/json" \
 -d @log.json
 '''
             }
         }
     }
-}   
+}                                                                                                                                                                                         
 
 
 
